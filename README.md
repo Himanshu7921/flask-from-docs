@@ -1,4 +1,3 @@
-Repo name: flask-from-docs
 # Flask by Building
 
 A structured, hands-on Flask learning repository built entirely from documentation and official references no tutorials.
