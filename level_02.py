@@ -71,6 +71,33 @@ def convert_temp():
         "converted_to": convert_temp
     })
 
-    
+
+# Task-07: Basic Calculator API
+@app.route("/calc", methods = ["POST"])
+def calculator():
+    data = request.get_json()
+    a = int(data.get("a"))
+    b = int(data.get("b"))
+    c = data.get("op")
+    if c == "+":
+        result = a + b
+    elif c == "/":
+        if b != 0:
+            result = a / b
+        else:
+            result = "Division by zero is not possible"
+    elif c == "-":
+        result = a - b
+    elif c == "*":
+        result = a * b
+    else:
+        return "Enter a valid operator from ['+', '-', '*', '/']"
+    expression = str(a) + str(c) + str(b)
+    return jsonify({
+        "input": expression,
+        "result": result
+    })
+
+
 if __name__ == "__main__":
     app.run(debug=True)
