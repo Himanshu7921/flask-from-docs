@@ -26,6 +26,15 @@ def home_route():
 def about_route():
     return render_template("about.html")
 
+# Task-02: Passing parameters in URL Routes
+@app.route("/hello/<name>")
+def say_hello(name: str):
+    return f"Hello, {name}"
+
+@app.route("/square/<int:num>")
+def square_num(num: int):
+    return f"{num ** 2}"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
