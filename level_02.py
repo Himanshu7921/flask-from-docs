@@ -24,6 +24,33 @@ def login():
         else:
             return "Invalid Credentials"
 
+
+# Task-05: POST Requests Handling with request.get_json(..) and return json with jsonify({...})
+@app.route("/validate", methods = ["POST"])
+def analyze():
+    data = request.get_json()
+    num = data.get("number")
+    if num is not None:
+        if num > 0:
+            sign = "Positive"
+        else:
+            sign = "Negative"
+        
+        if num % 2 == 0:
+            even_or_odd = "Even"
+
+        elif num % 2 != 0:
+            even_or_odd = "Odd"
+        
+        return jsonify({
+            "number": num,
+            "even_or_odd": even_or_odd,
+            "sign": sign
+        })
+    
+    else:
+        return "Number is None"
+
     
 if __name__ == "__main__":
     app.run(debug=True)
