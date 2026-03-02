@@ -98,6 +98,35 @@ def calculator():
         "result": result
     })
 
+# Task 08: Cookie-Based Visitor Counter
+"""
+cookies are read using the request.cookies.get() method and set using the response.set_cookie() method.
+Cookies are a way to store data on the client's browser to persist information between stateless HTTP requests.
+
+Tips for Working with Cookies in Flask
+
+1. Always return a Flask Response object — cookies can only be attached to responses.
+2. The browser updates its cookies only when the server returns a Response object that contains the Set-Cookie header.
+3. Wrap your output (JSON/text/HTML) using make_response(), get the response object, set the cookie on it, and return that response.
+"""
+@app.route("/visitor", methods = ["GET"])
+def visitor():
+    count = int(request.cookies.get("visitor_count", default = 0))
+    count += 1
+    if count == 1:
+        disply_message = "Hello first-time visitor!"
+    elif count > 1:
+        disply_message = "Welcome back!"
+    
+    data = jsonify({
+        "message": disply_message,
+        "visits": str(count)
+    })
+
+    response = make_response(data)
+    response.set_cookie("visitor_count", str(count))
+
+    return data
 
 if __name__ == "__main__":
     app.run(debug=True)
