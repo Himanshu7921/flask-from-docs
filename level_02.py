@@ -51,6 +51,26 @@ def analyze():
     else:
         return "Number is None"
 
+   
+# Task-06: Temperature Converter API
+@app.route("/convert-temp", methods = ["POST"])
+def convert_temp():
+    data = request.get_json()
+    temp = int(data.get("temperature"))
+    scale = data.get("scale")
+    input_temp = str(temp) + scale
+    if scale == "F":
+        convert_temp = str((temp - 32) * (5/9)) + str(" C")
+    elif scale == "C":
+        convert_temp = str(((9/5) * temp) + 32) + str(" F")
+    else:
+        return "Scale must be ['F' or 'C'] nothing else"
+    
+    return jsonify({
+        "input": input_temp,
+        "converted_to": convert_temp
+    })
+
     
 if __name__ == "__main__":
     app.run(debug=True)
