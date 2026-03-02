@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+
+    <h2>Login</h2>
+
+    <form action="/login" method="POST">
+        <div>
+            <label for="username">Username:</label>
+            <!-- 'id' links the input to the label via 'for' attribute, 'name' is used when form is submitted -->
+            <input type="text" id="username" name="username" required>
+        </div>
+        <br>
+        <div>
+            <label for="password">Password:</label>
+            <!-- 'type="password"' masks the input characters for security -->
+            <input type="password" id="password" name="password" required>
+        </div>
+        <br>
+        <button type="submit">Log In</button>
+    </form>
+
+</body>
+</html>
