@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 
+
+# Task-15: Custom error pages
 @app.errorhandler(404)
 def page_not_found(error): # If route dsn't exists then we get Error 404
     return """
