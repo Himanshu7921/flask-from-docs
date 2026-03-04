@@ -2,8 +2,11 @@
 
 import os
 from flask import Flask, render_template, jsonify, request, send_file
+from datetime import datetime
 
 app = Flask(__name__)
+
+
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.pdf', 'jpeg']
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 UPLOAD_FOLDER = "uploads"
@@ -51,6 +54,36 @@ def downoad_file(file_name: str):
     global UPLOAD_FOLDER
     path = f"{UPLOAD_FOLDER}/{file_name}"
     return send_file(path, as_attachment = True, download_name = file_name)
+
+# Task 14: Create a global request logger (Middleware)
+"""
+Create a global request logger that runs before any endpoint executes.
+
+It should log:
+    1. request path
+    2. request method
+    3. request timestamp
+    4. request IP address
+
+# This is Middleware
+-> Middleware is a function that runs before or after a request reaches the route handler.
+-> It is used to process common tasks like logging, authentication, validation, etc.
+-> In Flask, middleware can be implemented using hooks like @app.before_request.
+
+"""
+@ app.before_request
+def log_requests():
+    path = request.path
+    method = request.method
+    ip = request.remote_addr
+    timestamp = datetime.now().strftime("%d-%m-%y %H:%M:%S")
+    log = f"[{timestamp}] {method} {path} | IP: {ip}"
+
+    print(log)
+    
+    with open("log_request.txt", "a") as f:
+        f.write(log + "\n")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
